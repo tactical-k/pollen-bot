@@ -1,0 +1,25 @@
+name: Daily Pollen Notification
+
+on:
+  schedule:
+    # 毎朝6時(JST) = 21時(UTC前日)に実行
+    - cron: '0 21 * * *'
+  workflow_dispatch:  # 手動実行も可能
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+      
+      - name: Run pollen bot
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: go run main.go
