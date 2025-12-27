@@ -25,7 +25,7 @@ func TestFetchData_Success(t *testing.T) {
 	mockResponse := Response{
 		DailyInfo: []DailyInfo{
 			{
-				Date: "2024-03-15",
+				Date: Date{Year: 2024, Month: 3, Day: 15},
 				PollenTypes: []PollenType{
 					{
 						Code:        "TREE_POLLEN",
@@ -49,7 +49,7 @@ func TestFetchData_Success(t *testing.T) {
 	defer server.Close()
 
 	// クライアントを作成（テスト用にAPIのURLを上書きする必要があるため、直接構造体を作成）
-	client := &Client{
+	_ = &Client{
 		apiKey: "test-key",
 		client: &http.Client{},
 	}
@@ -68,7 +68,7 @@ func TestFetchData_InvalidJSON(t *testing.T) {
 	}))
 	defer server.Close()
 
-	client := &Client{
+	_ = &Client{
 		apiKey: "test-key",
 		client: &http.Client{},
 	}

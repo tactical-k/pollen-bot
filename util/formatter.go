@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -12,5 +13,20 @@ func FormatDate(dateStr string) string {
 	if len(parts) != 3 {
 		return dateStr
 	}
-	return fmt.Sprintf("%s年%s月%s日", parts[0], parts[1], parts[2])
+
+	// 年月日を整数に変換して先頭のゼロを削除
+	year, err := strconv.Atoi(parts[0])
+	if err != nil {
+		return dateStr
+	}
+	month, err := strconv.Atoi(parts[1])
+	if err != nil {
+		return dateStr
+	}
+	day, err := strconv.Atoi(parts[2])
+	if err != nil {
+		return dateStr
+	}
+
+	return fmt.Sprintf("%d年%d月%d日", year, month, day)
 }

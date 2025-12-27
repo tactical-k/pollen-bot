@@ -37,7 +37,7 @@ func TestSendPollenInfo_Success(t *testing.T) {
 	testData := &pollen.Response{
 		DailyInfo: []pollen.DailyInfo{
 			{
-				Date: "2024-03-15",
+				Date: pollen.Date{Year: 2024, Month: 3, Day: 15},
 				PollenTypes: []pollen.PollenType{
 					{
 						Code:        "TREE",
@@ -103,7 +103,7 @@ func TestSendPollenInfo_NoInSeasonPollen(t *testing.T) {
 	testData := &pollen.Response{
 		DailyInfo: []pollen.DailyInfo{
 			{
-				Date: "2024-03-15",
+				Date: pollen.Date{Year: 2024, Month: 3, Day: 15},
 				PollenTypes: []pollen.PollenType{
 					{
 						Code:        "TREE",
@@ -168,7 +168,7 @@ func TestSendPollenInfo_WebhookError(t *testing.T) {
 	testData := &pollen.Response{
 		DailyInfo: []pollen.DailyInfo{
 			{
-				Date:        "2024-03-15",
+				Date:        pollen.Date{Year: 2024, Month: 3, Day: 15},
 				PollenTypes: []pollen.PollenType{},
 			},
 		},
