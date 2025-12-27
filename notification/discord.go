@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"pollen-discord-bot/pollen"
 )
@@ -49,7 +50,29 @@ func (d *DiscordNotifier) SendPollenInfo(data *pollen.Response, location string,
 		return fmt.Errorf("花粉データがありません")
 	}
 
-	today := data.DailyInfo[0]
+	// 日本時間（JST: UTC+9）で現在の日付を取得
+	jst, err := time.LoadLocation("Asia/Tokyo")
+	if err != nil {
+		return fmt.Errorf("日本時間の取得に失敗: %w", err)
+	}
+	now := time.Now().In(jst)
+	todayYear, todayMonth, todayDay := now.Year(), int(now.Month()), now.Day()
+
+	// 日本時間の今日の日付に一致するデータを探す
+	var today pollen.DailyInfo
+	found := false
+	for _, info := range data.DailyInfo {
+		if info.Date.Year == todayYear && info.Date.Month == todayMonth && info.Date.Day == todayDay {
+			today = info
+			found = true
+			break
+		}
+	}
+
+	// 今日のデータが見つからない場合は最初のデータを使用
+	if !found {
+		today = data.DailyInfo[0]
+	}
 
 	// Embedフィールドを作成
 	var fields []Field

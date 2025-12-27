@@ -43,8 +43,8 @@ type PollenType struct {
 }
 
 type Index struct {
-	Value       int    `json:"value"`
-	Category    string `json:"category"`
+	Value        int    `json:"value"`
+	Category     string `json:"category"`
 	IndexDisplay string `json:"indexDisplay"`
 }
 

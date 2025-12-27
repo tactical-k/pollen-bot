@@ -28,7 +28,7 @@ func main() {
 	pollenClient := pollen.NewClient(apiKey)
 
 	// 花粉情報を取得（東京の1日分）
-	pollenData, err := pollenClient.FetchData(pollen.TokyoLat, pollen.TokyoLon, 1)
+	pollenData, err := pollenClient.FetchData(pollen.TokyoLat, pollen.TokyoLon, 2)
 	if err != nil {
 		log.Fatalf("花粉情報の取得に失敗しました: %v", err)
 	}
