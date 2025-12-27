@@ -2,8 +2,8 @@ name: Daily Pollen Notification
 
 on:
   schedule:
-    # 日付問題を避けるため、少し遅らせて9:30 JST = 0:30 UTCに実行
-    - cron: '30 0 * * *'
+    # 毎朝6時(JST) = 21時(UTC前日)に実行
+    - cron: '0 21 * * *'
   workflow_dispatch:  # 手動実行も可能
 
 jobs:
@@ -18,13 +18,8 @@ jobs:
         with:
           go-version: '1.21'
       
-      - name: Set timezone to JST
-        run: |
-          sudo timedatectl set-timezone Asia/Tokyo || echo "timedatectl not available, using TZ environment variable"
-      
       - name: Run pollen bot
         env:
-          TZ: Asia/Tokyo
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: go run main.go
