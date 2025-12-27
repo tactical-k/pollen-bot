@@ -2,8 +2,8 @@ name: Daily Pollen Notification
 
 on:
   schedule:
-    # 毎朝6時(JST) = 21時(UTC前日)に実行
-    - cron: '0 21 * * *'
+    # 毎朝7時17分(JST) = 22時17分(UTC前日)に実行
+    - cron: '17 22 * * *'
   workflow_dispatch:  # 手動実行も可能
 
 jobs:
